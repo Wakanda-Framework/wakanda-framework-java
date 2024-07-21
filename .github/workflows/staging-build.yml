@@ -32,7 +32,7 @@ jobs:
       - name: Build Package
         run: mvn -s settings.xml clean compile -Dmaven.test.skip=true
       - name: Publish to GitHub Packages
-        run: mvn -s settings.xml --batch-mode deploy
+        run: mvn -s settings.xml --batch-mode -X deploy
         env:
           # GITHUB_ACTOR: ${{ secrets.PUBLISHED_BY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
