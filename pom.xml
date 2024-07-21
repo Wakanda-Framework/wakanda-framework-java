@@ -267,15 +267,15 @@
     <distributionManagement>
         <repository>
             <id>github</id>
-            <name>GitHub RaRa-Delivery Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/RaRa-Delivery/maven-packages</url>
+            <name>GitHub Wakanda Framework Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/Wakanda-Framework/maven-packages</url>
         </repository>
     </distributionManagement>
 
     <scm>
-        <connection>scm:git:https://github.com/RaRa-Delivery/wakanda-framework.git</connection>
-        <developerConnection>scm:git:https://github.com/RaRa-Delivery/wakanda-framework.git</developerConnection>
-        <url>https://github.com/RaRa-Delivery/wakanda-framework</url>
+        <connection>scm:git:https://github.com/Wakanda-Framework/wakanda-framework.git</connection>
+        <developerConnection>scm:git:https://github.com/Wakanda-Framework/wakanda-framework.git</developerConnection>
+        <url>https://github.com/Wakanda-Framework/wakanda-framework</url>
 
     </scm>
 
