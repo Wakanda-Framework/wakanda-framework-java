@@ -1,9 +1,8 @@
-/* (C)2022 */
+/* (C) 2022 WAKANDA FRAMEWORK */
 package org.wakanda.framework.tools;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.wakanda.framework.constant.CommonsConstant;
 
 /**
