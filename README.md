@@ -1,3 +1,5 @@
+[![Publish on Github Packages](https://github.com/Wakanda-Framework/wakanda-framework-java/actions/workflows/staging-build.yml/badge.svg?event=pull_request)](https://github.com/Wakanda-Framework/wakanda-framework-java/actions/workflows/staging-build.yml)
+
 # wakanda-framework
 
 Wakanda is an adaptive framework for services to spin-up functional CRUD operations and integrate configurations, plugins, and cater for java dependencies.
