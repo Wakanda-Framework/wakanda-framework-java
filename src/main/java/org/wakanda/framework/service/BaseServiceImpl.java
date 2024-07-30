@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,12 +19,11 @@ import org.wakanda.framework.repository.BaseRepository;
 @Service
 @Transactional
 @Slf4j
-public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Serializable>
+public class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Serializable>
     implements BaseService<T, ID> {
 
   private final BaseRepository<T, ID> baseRepository;
 
-  @Autowired
   protected BaseServiceImpl(BaseRepository<T, ID> baseRepository) {
     this.baseRepository = baseRepository;
   }
