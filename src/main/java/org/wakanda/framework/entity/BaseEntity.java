@@ -110,7 +110,7 @@ public abstract class BaseEntity<ID extends Serializable> implements Serializabl
   private Long getSessionUserId() {
     if (SecurityContextHolder.getContext().getAuthentication() == null) {
       log.error("Context Auth Missing. ");
-      return SessionConstant.RARA_ADMIN_ID;
+      return SessionConstant.WAKANDA_ADMIN_ID;
     }
     final UserPrincipal userPrincipal =
         (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

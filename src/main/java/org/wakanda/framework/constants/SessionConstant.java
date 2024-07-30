@@ -2,5 +2,5 @@
 package org.wakanda.framework.constants;
 
 public class SessionConstant {
-  public static Long RARA_ADMIN_ID = 1L;
+  public static Long WAKANDA_ADMIN_ID = 1L;
 }

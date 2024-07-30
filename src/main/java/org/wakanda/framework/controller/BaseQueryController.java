@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +34,6 @@ public class BaseQueryController<T extends BaseEntity<ID>, ID extends Serializab
 
   private final ResponseHelper<T> responseHelper;
 
-  @Autowired
   public BaseQueryController(BaseService<T, ID> baseService, ResponseHelper<T> responseHelper) {
     super(baseService, responseHelper);
     this.baseService = baseService;
