@@ -1,6 +1,4 @@
-[![Publish Staging on GH Packages](https://github.com/Wakanda-Framework/wakanda-framework-java/actions/workflows/staging-build.yml/badge.svg?event=pull_request)](https://github.com/Wakanda-Framework/wakanda-framework-java/actions/workflows/staging-build.yml)
-
-[![CodeQL](https://github.com/Wakanda-Framework/wakanda-framework-java/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Wakanda-Framework/wakanda-framework-java/actions/workflows/github-code-scanning/codeql)
+[![Publish Staging on GH Packages](https://github.com/Wakanda-Framework/wakanda-framework-java/actions/workflows/staging-build.yml/badge.svg?event=pull_request)](https://github.com/Wakanda-Framework/wakanda-framework-java/actions/workflows/staging-build.yml) [![CodeQL](https://github.com/Wakanda-Framework/wakanda-framework-java/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Wakanda-Framework/wakanda-framework-java/actions/workflows/github-code-scanning/codeql)
 
 # wakanda-framework
 
