@@ -42,11 +42,11 @@ import org.wakanda.framework.tools.BaseStaticValues;
 @Getter
 @Setter
 @ToString
-@MappedSuperclass
 @AllArgsConstructor
 @NoArgsConstructor
 @Slf4j
-public abstract class BaseEntity<ID extends Serializable> implements Serializable {
+@MappedSuperclass
+public class BaseEntity<ID extends Serializable> implements Serializable {
 
   /**
    * @serialVersionUID - The serialVersionUID attribute is an identifier that is used to

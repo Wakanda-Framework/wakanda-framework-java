@@ -11,7 +11,7 @@
     </parent>
     <groupId>org.wakanda.framework</groupId>
     <artifactId>wakanda-framework</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>wakanda-framework</name>
     <description>A quick action SpringBoot based microservices framework that allows for rapid construction of backend services including data modelling, business logic and other features.</description>
     <properties>
@@ -87,8 +87,7 @@
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
-            <version>1.9.0</version>
-            <scope>runtime</scope>
+            <version>1.9.8</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.paho</groupId>
@@ -227,6 +226,11 @@
             <artifactId>spring-boot-test</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+	      <groupId>com.h2database</groupId>
+	      <artifactId>h2</artifactId>
+	      <scope>runtime</scope>
+	 	</dependency>
     </dependencies>
 
     <repositories>

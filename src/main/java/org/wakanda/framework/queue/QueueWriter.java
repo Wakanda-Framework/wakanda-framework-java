@@ -3,14 +3,13 @@ package org.wakanda.framework.queue;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * @author vipulmeehnia
  * @date 2021-09-15
  * @since JDK1.8
  */
-@Component
+// @Component
 public class QueueWriter {
 
   @Autowired private RabbitTemplate rabbitTemplate;
