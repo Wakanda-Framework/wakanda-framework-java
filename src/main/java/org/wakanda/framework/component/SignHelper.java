@@ -7,8 +7,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;
 import org.wakanda.framework.constant.SignatureConstant;
-import org.wakanda.framework.exception.type.IllegalParamException;
-import org.wakanda.framework.exception.type.SignFailedException;
+import org.wakanda.framework.exception.IllegalParamException;
+import org.wakanda.framework.exception.SignFailedException;
 import org.wakanda.framework.param.BaseParam;
 
 /**

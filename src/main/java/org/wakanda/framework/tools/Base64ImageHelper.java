@@ -3,7 +3,7 @@ package org.wakanda.framework.tools;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.wakanda.framework.constant.CommonsConstant;
-import org.wakanda.framework.exception.type.IllegalExtTypeException;
+import org.wakanda.framework.exception.IllegalExtTypeException;
 
 /**
  * decode base64 image utilities.

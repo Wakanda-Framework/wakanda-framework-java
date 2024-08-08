@@ -1,5 +1,5 @@
 /* (C) 2022 WAKANDA FRAMEWORK */
-package org.wakanda.framework.exception.response;
+package org.wakanda.framework.exception.handler.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date 2021-09-15
  * @since JDK1.8
  */
-// @Component
-public class QueueWriter {
+public class BaseQueueWriter {
 
   @Autowired private RabbitTemplate rabbitTemplate;
 

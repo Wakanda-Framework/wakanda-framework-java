@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.wakanda.framework.constant.CommonsConstant;
 import org.wakanda.framework.enums.GrantType;
-import org.wakanda.framework.exception.type.IllegalTokenTypeException;
+import org.wakanda.framework.exception.IllegalTokenTypeException;
 
 /**
  * Login utils.
