@@ -2,7 +2,6 @@
 package org.wakanda.framework.entity;
 
 import java.io.Serializable;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +13,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +28,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.wakanda.framework.constants.SessionConstant;
 import org.wakanda.framework.model.UserPrincipal;
-import org.wakanda.framework.tools.BaseStaticValues;
 
 /**
  * @author - adityakumar
@@ -48,19 +45,11 @@ import org.wakanda.framework.tools.BaseStaticValues;
 @MappedSuperclass
 public class BaseEntity<ID extends Serializable> implements Serializable {
 
-  /**
-   * @serialVersionUID - The serialVersionUID attribute is an identifier that is used to
-   *     serialize/deserialize an object of a Serializable class.
-   */
-  @Transient public static final long serialVersionUID = BaseStaticValues.serialVersionUID;
+  @Transient private static final long serialVersionUID = -3253056241076756435L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private ID id;
-
-  @Column(name = "tenant_token")
-  @NotBlank(message = "Tenant Token cannot be null/empty.")
-  private String tenantToken;
 
   @Column(name = "created_by")
   @NotNull(message = "Created by cannot be null")
@@ -117,16 +106,27 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
     return Long.parseLong(userPrincipal.getUser().getUserId());
   }
 
+  @SuppressWarnings("unchecked")
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-    BaseEntity<ID> that = (BaseEntity<ID>) o;
-    return tenantToken != null && Objects.equals(tenantToken, that.tenantToken);
+  public boolean equals(Object other) {
+    if (this == other) return true;
+    if (!(other instanceof BaseEntity)) return false;
+    if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false;
+
+    BaseEntity<ID> baseEntity = (BaseEntity<ID>) other;
+
+    if (!baseEntity.getCreatedOn().equals(getCreatedOn())) return false;
+    if (!baseEntity.getLastUpdatedOn().equals(getLastUpdatedOn())) return false;
+    if (baseEntity.getVersion() != getVersion()) return false;
+
+    return true;
   }
 
   @Override
   public int hashCode() {
-    return getClass().hashCode();
+    int result;
+    result = getCreatedOn().hashCode();
+    result = getVersion().intValue() * result + getLastUpdatedOn().hashCode();
+    return result;
   }
 }

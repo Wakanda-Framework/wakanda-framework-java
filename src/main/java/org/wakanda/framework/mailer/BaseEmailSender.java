@@ -4,12 +4,10 @@ package org.wakanda.framework.mailer;
 import java.io.File;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Component;
 
 /**
  * Utility to send html emails
@@ -18,16 +16,20 @@ import org.springframework.stereotype.Component;
  * @date 2021-09-11
  * @since JDK1.8
  */
-@Component
-public class EmailSender {
+public class BaseEmailSender {
 
-  @Autowired private JavaMailSender javaMailSender;
+  private JavaMailSender javaMailSender;
 
-  @Value("${rara.email.from.name}")
+  @Value("${wakanda.notify.email.from.name}")
   private String fromName;
 
-  @Value("${rara.email.from.email}")
+  @Value("${wakanda.notify.email.from.emailId}")
   private String fromEmail;
+
+  public BaseEmailSender(JavaMailSender javaMailSender) {
+    super();
+    this.javaMailSender = javaMailSender;
+  }
 
   public void sendHtmlMail(String to, String subject, String message) {
 

@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 import lombok.Data;
 import org.wakanda.framework.annotation.SignField;
 import org.wakanda.framework.constant.SignatureConstant;
-import org.wakanda.framework.exception.type.SignFailedException;
+import org.wakanda.framework.exception.SignFailedException;
 import org.wakanda.framework.tools.BaseStaticValues;
 import org.wakanda.framework.tools.SignatureUtils;
 

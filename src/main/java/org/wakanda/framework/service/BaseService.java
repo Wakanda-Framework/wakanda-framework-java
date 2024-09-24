@@ -7,6 +7,9 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.wakanda.framework.dto.specification.SearchRequest;
 import org.wakanda.framework.entity.BaseEntity;
+import org.wakanda.framework.exception.BaseException;
+import org.wakanda.framework.exception.PostProcessingException;
+import org.wakanda.framework.exception.PreProcessingException;
 
 /**
  * @author - adityakumar
@@ -16,17 +19,30 @@ import org.wakanda.framework.entity.BaseEntity;
  * @param <ID> - Datatype of id field of that entity.
  */
 public interface BaseService<T extends BaseEntity<ID>, ID extends Serializable> {
-  T save(T entity);
 
-  T update(T entity);
+  T preSave(T entity) throws PreProcessingException;
 
-  List<T> findAll();
+  T save(T entity) throws BaseException;
 
-  Page<T> findAll(SearchRequest searchRequest);
+  T postSave(T oldEntity, T newEntity) throws PostProcessingException;
 
-  Optional<T> findById(ID entityId);
+  List<T> findAll() throws BaseException;
 
-  T softDeleteById(ID entityId);
+  Page<T> findAll(SearchRequest searchRequest) throws BaseException;
 
-  void deleteById(ID entityId);
+  Optional<T> findById(ID entityId) throws BaseException;
+
+  T preUpdate(T entity, ID entityId) throws PreProcessingException;
+
+  T update(T entity, ID entityId) throws BaseException;
+
+  T postUpdate(T oldEntity, T newEntity) throws PostProcessingException;
+
+  T preDelete(ID entityId) throws PreProcessingException;
+
+  T delete(ID entityId) throws BaseException;
+
+  T postDelete(T entity) throws PostProcessingException;
+
+  void deleteById(ID entityId) throws BaseException;
 }

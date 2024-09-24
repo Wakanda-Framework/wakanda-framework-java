@@ -13,7 +13,7 @@ import java.security.spec.X509EncodedKeySpec;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.wakanda.framework.constant.SignatureConstant;
-import org.wakanda.framework.exception.type.SignFailedException;
+import org.wakanda.framework.exception.SignFailedException;
 
 /**
  * Signature utilities.
