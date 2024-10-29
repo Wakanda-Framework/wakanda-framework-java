@@ -1,5 +1,8 @@
 name: Publish on Github Packages
 on:
+  push:
+    branches:
+      - staging
   pull_request:
     branches:
       - staging
