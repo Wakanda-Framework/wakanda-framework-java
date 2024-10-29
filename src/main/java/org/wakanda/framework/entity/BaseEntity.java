@@ -13,12 +13,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
@@ -41,6 +41,7 @@ import org.wakanda.framework.model.UserPrincipal;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 @Slf4j
 @MappedSuperclass
 public class BaseEntity<ID extends Serializable> implements Serializable {
@@ -51,39 +52,33 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private ID id;
 
-  @Column(name = "created_by")
-  @NotNull(message = "Created by cannot be null")
+  @Column(name = "created_by", nullable = false)
   private Long createdBy;
 
-  @Column(name = "created_on")
-  @NotNull(message = "Created on cannot be null")
+  @Column(name = "created_on", nullable = false)
   @Temporal(TemporalType.TIMESTAMP)
   @Type(type = "org.wakanda.framework.util.TimeBridgeForMillis")
   private DateTime createdOn;
 
   @Column(name = "last_updated_by")
-  @NotNull(message = "Last updated cannot be null")
   private Long lastUpdatedBy;
 
   @Column(name = "last_updated_on")
-  @NotNull(message = "Last updated cannot be null")
   @Temporal(value = TemporalType.TIMESTAMP)
   @Type(type = "org.wakanda.framework.util.TimeBridgeForMillis")
   private DateTime lastUpdatedOn;
 
   @Version
   @Column(name = "version")
-  @NotNull(message = "Version cannot be null")
-  private Long version;
+  private int version;
 
-  @Column(name = "is_active")
-  @NotNull(message = "isActive cannot be null")
+  @Column(name = "is_active", columnDefinition = "tinyint(1) default 1")
   private Boolean isActive;
 
   @PrePersist
   protected void onCreate() {
-    this.createdOn = this.lastUpdatedOn = DateTime.now();
-    this.createdBy = this.lastUpdatedBy = getSessionUserId();
+    this.createdOn = DateTime.now();
+    this.createdBy = this.createdBy != null ? this.createdBy : getSessionUserId();
   }
 
   @PreUpdate
@@ -91,9 +86,10 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
   protected void onUpdate() {
     this.lastUpdatedOn = DateTime.now();
     final Long currentUser = getSessionUserId();
-    if (currentUser != null) {
+    if (currentUser != null && this.lastUpdatedBy == null) {
       this.lastUpdatedBy = currentUser;
     }
+    this.version = this.version + 1;
   }
 
   private Long getSessionUserId() {
@@ -126,7 +122,7 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
   public int hashCode() {
     int result;
     result = getCreatedOn().hashCode();
-    result = getVersion().intValue() * result + getLastUpdatedOn().hashCode();
+    result = getVersion() * result + getLastUpdatedOn().hashCode();
     return result;
   }
 }

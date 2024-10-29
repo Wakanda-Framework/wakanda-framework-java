@@ -11,7 +11,7 @@
     </parent>
     <groupId>org.wakanda.framework</groupId>
     <artifactId>wakanda-framework</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>wakanda-framework</name>
     <description>A quick action SpringBoot based microservices framework that allows for rapid construction of backend services including data modelling, business logic and other features.</description>
     <properties>
@@ -25,6 +25,7 @@
         <jacoco.version>0.8.8</jacoco.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <springdoc.version>1.8.0</springdoc.version>
+        <mariadb.client>3.4.1</mariadb.client>
     </properties>
     <dependencies>
         <dependency>
@@ -231,6 +232,26 @@
 		    <groupId>com.fasterxml.jackson.datatype</groupId>
 		    <artifactId>jackson-datatype-joda</artifactId>
 		    <version>2.13.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>${mariadb.client}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<version>1.9.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.0.0</version>
 		</dependency>
     </dependencies>
 
