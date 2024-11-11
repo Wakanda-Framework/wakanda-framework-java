@@ -77,6 +77,7 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
 
   @PrePersist
   protected void onCreate() {
+	this.isActive = true;
     this.createdOn = DateTime.now();
     this.createdBy = this.createdBy != null ? this.createdBy : getSessionUserId();
   }
@@ -112,7 +113,8 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
     BaseEntity<ID> baseEntity = (BaseEntity<ID>) other;
 
     if (!baseEntity.getCreatedOn().equals(getCreatedOn())) return false;
-    if (!baseEntity.getLastUpdatedOn().equals(getLastUpdatedOn())) return false;
+    if (null != baseEntity.getLastUpdatedOn() && null != getLastUpdatedOn())
+    	if (!baseEntity.getLastUpdatedOn().equals(getLastUpdatedOn())) return false;
     if (baseEntity.getVersion() != getVersion()) return false;
 
     return true;
@@ -122,7 +124,7 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
   public int hashCode() {
     int result;
     result = getCreatedOn().hashCode();
-    result = getVersion() * result + getLastUpdatedOn().hashCode();
+    result = getVersion() * result + (null != getLastUpdatedOn() ? getLastUpdatedOn().hashCode() : 0);
     return result;
   }
 }
