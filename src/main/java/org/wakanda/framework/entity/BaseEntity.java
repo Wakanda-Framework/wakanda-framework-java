@@ -123,8 +123,8 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
   @Override
   public int hashCode() {
     int result;
-    result = getCreatedOn().hashCode();
-    result = getVersion() * result + (null != getLastUpdatedOn() ? getLastUpdatedOn().hashCode() : 0);
+    result = null != getCreatedOn() ? getCreatedOn().hashCode() : 1;
+    result = getVersion() * result + (null != getLastUpdatedOn() ? getLastUpdatedOn().hashCode() : 2);
     return result;
   }
 }
