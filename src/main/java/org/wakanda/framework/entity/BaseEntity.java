@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.wakanda.framework.constants.SessionConstant;
 import org.wakanda.framework.model.UserPrincipal;
+import org.wakanda.framework.util.WakandaUtils;
 
 /**
  * @author - adityakumar
@@ -77,7 +78,7 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
 
   @PrePersist
   protected void onCreate() {
-	this.isActive = true;
+    this.isActive = true;
     this.createdOn = DateTime.now();
     this.createdBy = this.createdBy != null ? this.createdBy : getSessionUserId();
   }
@@ -106,15 +107,20 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
   @SuppressWarnings("unchecked")
   @Override
   public boolean equals(Object other) {
+    if (null == other) return false;
+    if (WakandaUtils.areAllEntityVariablesNull(this)) return false;
+    if (WakandaUtils.areAllEntityVariablesNull(other)) return false;
     if (this == other) return true;
     if (!(other instanceof BaseEntity)) return false;
     if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false;
 
     BaseEntity<ID> baseEntity = (BaseEntity<ID>) other;
-
+    log.info("other = {}", other);
+    // log.info("this = {}", this);
     if (!baseEntity.getCreatedOn().equals(getCreatedOn())) return false;
     if (null != baseEntity.getLastUpdatedOn() && null != getLastUpdatedOn())
-    	if (!baseEntity.getLastUpdatedOn().equals(getLastUpdatedOn())) return false;
+      if (!baseEntity.getLastUpdatedOn().equals(getLastUpdatedOn()))
+        return false; // TODO: fix this line
     if (baseEntity.getVersion() != getVersion()) return false;
 
     return true;
@@ -124,7 +130,8 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
   public int hashCode() {
     int result;
     result = null != getCreatedOn() ? getCreatedOn().hashCode() : 1;
-    result = getVersion() * result + (null != getLastUpdatedOn() ? getLastUpdatedOn().hashCode() : 2);
+    result =
+        getVersion() * result + (null != getLastUpdatedOn() ? getLastUpdatedOn().hashCode() : 2);
     return result;
   }
 }
