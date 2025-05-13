@@ -21,10 +21,9 @@ jobs:
           distribution: 'adopt'
       - name: Set output
         id: vars
-        # run: echo "::set-output name=branch_name::${GITHUB_REF#refs/heads/}"
-        run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
-      - name: Cache Local Maven Repository
-        uses: actions/cache@v2
+        run: echo "::set-output name=branch_name::${GITHUB_REF#refs/heads/}"
+      - name: Cache local Maven repository
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
