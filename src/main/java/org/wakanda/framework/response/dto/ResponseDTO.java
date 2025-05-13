@@ -1,18 +1,15 @@
-/* (C)2022 */
+/* (C) 2022 WAKANDA FRAMEWORK */
 package org.wakanda.framework.response.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serial;
 import java.io.Serializable;
-
-import org.wakanda.framework.tools.BaseStaticValues;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.wakanda.framework.tools.BaseStaticValues;
 
 @Getter
 @Setter

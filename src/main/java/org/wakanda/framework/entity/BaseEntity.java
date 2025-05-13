@@ -2,7 +2,6 @@
 package org.wakanda.framework.entity;
 
 import java.io.Serializable;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,13 +13,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
@@ -30,7 +28,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.wakanda.framework.constants.SessionConstant;
 import org.wakanda.framework.model.UserPrincipal;
-import org.wakanda.framework.tools.BaseStaticValues;
+import org.wakanda.framework.util.WakandaUtils;
 
 /**
  * @author - adityakumar
@@ -42,59 +40,47 @@ import org.wakanda.framework.tools.BaseStaticValues;
 @Getter
 @Setter
 @ToString
-@MappedSuperclass
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 @Slf4j
-public abstract class BaseEntity<ID extends Serializable> implements Serializable {
+@MappedSuperclass
+public class BaseEntity<ID extends Serializable> implements Serializable {
 
-  /**
-   * @serialVersionUID - The serialVersionUID attribute is an identifier that is used to
-   *     serialize/deserialize an object of a Serializable class.
-   */
-  @Transient public static final long serialVersionUID = BaseStaticValues.serialVersionUID;
+  @Transient private static final long serialVersionUID = -3253056241076756435L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private ID id;
 
-  @Column(name = "tenant_token")
-  @NotBlank(message = "Tenant Token cannot be null/empty.")
-  private String tenantToken;
-
-  @Column(name = "created_by")
-  @NotNull(message = "Created by cannot be null")
+  @Column(name = "created_by", nullable = false)
   private Long createdBy;
 
-  @Column(name = "created_on")
-  @NotNull(message = "Created on cannot be null")
+  @Column(name = "created_on", nullable = false)
   @Temporal(TemporalType.TIMESTAMP)
   @Type(type = "org.wakanda.framework.util.TimeBridgeForMillis")
   private DateTime createdOn;
 
   @Column(name = "last_updated_by")
-  @NotNull(message = "Last updated cannot be null")
   private Long lastUpdatedBy;
 
   @Column(name = "last_updated_on")
-  @NotNull(message = "Last updated cannot be null")
   @Temporal(value = TemporalType.TIMESTAMP)
   @Type(type = "org.wakanda.framework.util.TimeBridgeForMillis")
   private DateTime lastUpdatedOn;
 
   @Version
   @Column(name = "version")
-  @NotNull(message = "Version cannot be null")
-  private Long version;
+  private int version;
 
-  @Column(name = "is_active")
-  @NotNull(message = "isActive cannot be null")
+  @Column(name = "is_active", columnDefinition = "tinyint(1) default 1")
   private Boolean isActive;
 
   @PrePersist
   protected void onCreate() {
-    this.createdOn = this.lastUpdatedOn = DateTime.now();
-    this.createdBy = this.lastUpdatedBy = getSessionUserId();
+    this.isActive = true;
+    this.createdOn = DateTime.now();
+    this.createdBy = this.createdBy != null ? this.createdBy : getSessionUserId();
   }
 
   @PreUpdate
@@ -102,31 +88,50 @@ public abstract class BaseEntity<ID extends Serializable> implements Serializabl
   protected void onUpdate() {
     this.lastUpdatedOn = DateTime.now();
     final Long currentUser = getSessionUserId();
-    if (currentUser != null) {
+    if (currentUser != null && this.lastUpdatedBy == null) {
       this.lastUpdatedBy = currentUser;
     }
+    this.version = this.version + 1;
   }
 
   private Long getSessionUserId() {
     if (SecurityContextHolder.getContext().getAuthentication() == null) {
       log.error("Context Auth Missing. ");
-      return SessionConstant.RARA_ADMIN_ID;
+      return SessionConstant.WAKANDA_ADMIN_ID;
     }
     final UserPrincipal userPrincipal =
         (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     return Long.parseLong(userPrincipal.getUser().getUserId());
   }
 
+  @SuppressWarnings("unchecked")
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-    BaseEntity<ID> that = (BaseEntity<ID>) o;
-    return tenantToken != null && Objects.equals(tenantToken, that.tenantToken);
+  public boolean equals(Object other) {
+    if (null == other) return false;
+    if (WakandaUtils.areAllEntityVariablesNull(this)) return false;
+    if (WakandaUtils.areAllEntityVariablesNull(other)) return false;
+    if (this == other) return true;
+    if (!(other instanceof BaseEntity)) return false;
+    if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false;
+
+    BaseEntity<ID> baseEntity = (BaseEntity<ID>) other;
+    log.info("other = {}", other);
+    // log.info("this = {}", this);
+    if (!baseEntity.getCreatedOn().equals(getCreatedOn())) return false;
+    if (null != baseEntity.getLastUpdatedOn() && null != getLastUpdatedOn())
+      if (!baseEntity.getLastUpdatedOn().equals(getLastUpdatedOn()))
+        return false; // TODO: fix this line
+    if (baseEntity.getVersion() != getVersion()) return false;
+
+    return true;
   }
 
   @Override
   public int hashCode() {
-    return getClass().hashCode();
+    int result;
+    result = null != getCreatedOn() ? getCreatedOn().hashCode() : 1;
+    result =
+        getVersion() * result + (null != getLastUpdatedOn() ? getLastUpdatedOn().hashCode() : 2);
+    return result;
   }
 }

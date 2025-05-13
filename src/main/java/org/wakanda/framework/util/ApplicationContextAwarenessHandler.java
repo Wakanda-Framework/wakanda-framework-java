@@ -1,4 +1,4 @@
-/* (C)2022 */
+/* (C) 2022 WAKANDA FRAMEWORK */
 package org.wakanda.framework.util;
 
 import java.util.Map;

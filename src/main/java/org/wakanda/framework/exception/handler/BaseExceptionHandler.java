@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.wakanda.framework.enums.ErrorType;
-import org.wakanda.framework.exception.response.BaseExceptionResponse;
-import org.wakanda.framework.exception.type.BaseException;
-import org.wakanda.framework.exception.type.IllegalExtTypeException;
-import org.wakanda.framework.exception.type.IllegalParamException;
-import org.wakanda.framework.exception.type.IllegalTokenTypeException;
-import org.wakanda.framework.exception.type.SignFailedException;
+import org.wakanda.framework.exception.BaseException;
+import org.wakanda.framework.exception.IllegalExtTypeException;
+import org.wakanda.framework.exception.IllegalParamException;
+import org.wakanda.framework.exception.IllegalTokenTypeException;
+import org.wakanda.framework.exception.PostProcessingException;
+import org.wakanda.framework.exception.PreProcessingException;
+import org.wakanda.framework.exception.SignFailedException;
+import org.wakanda.framework.exception.handler.response.BaseExceptionResponse;
 
 @Slf4j
 public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandler {
@@ -43,7 +45,7 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
                     objectError -> ((FieldError) objectError).getField(),
                     DefaultMessageSourceResolvable::getDefaultMessage));
 
-    log.info("[BaseExceptionHandler] Validation error : Reason - {} ", errors);
+    log.error("[BaseExceptionHandler] Validation error : Reason - {} ", errors);
 
     BaseExceptionResponse baseExceptionResponse =
         BaseExceptionResponse.builder()
@@ -53,7 +55,7 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
                     .map(Object::toString)
                     .collect(Collectors.joining(", "))
                     .concat(" is invalid."))
-            .payload(exception.getStackTrace())
+            .payload(errors.values().toArray())
             .build();
     return ResponseEntity.unprocessableEntity().body(baseExceptionResponse);
   }
@@ -177,5 +179,31 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
             .payload(e.getMostSpecificCause().getLocalizedMessage())
             .build(),
         HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(PreProcessingException.class)
+  public ResponseEntity<BaseExceptionResponse> handleExceptions(
+      PreProcessingException e, WebRequest webRequest) {
+    log.error("[BaseExceptionHandler] Pre-Processing Exception: ", e);
+    return new ResponseEntity<>(
+        BaseExceptionResponse.builder()
+            .code(e.code())
+            .message(e.message())
+            .payload(e.getMessage())
+            .build(),
+        HttpStatus.PRECONDITION_FAILED);
+  }
+
+  @ExceptionHandler(PostProcessingException.class)
+  public ResponseEntity<BaseExceptionResponse> handleExceptions(
+      PostProcessingException e, WebRequest webRequest) {
+    log.error("[BaseExceptionHandler] Post-Processing Exception: ", e);
+    return new ResponseEntity<>(
+        BaseExceptionResponse.builder()
+            .code(e.code())
+            .message(e.message())
+            .payload(e.getMessage())
+            .build(),
+        HttpStatus.UNPROCESSABLE_ENTITY);
   }
 }

@@ -1,9 +1,9 @@
-/* (C)2022 */
+/* (C) 2022 WAKANDA FRAMEWORK */
 package org.wakanda.framework.tools;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.wakanda.framework.constant.CommonsConstant;
-import org.wakanda.framework.exception.type.IllegalExtTypeException;
+import org.wakanda.framework.exception.IllegalExtTypeException;
 
 /**
  * decode base64 image utilities.
