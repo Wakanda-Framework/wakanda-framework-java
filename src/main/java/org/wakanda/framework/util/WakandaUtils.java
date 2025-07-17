@@ -30,7 +30,7 @@ public class WakandaUtils {
   }
 
   @SuppressWarnings("unused")
-private static <T> Predicate<PropertyDescriptor> notNulls(T obj) {
+  private static <T> Predicate<PropertyDescriptor> notNulls(T obj) {
     return pd -> {
       Method getterMethod = pd.getReadMethod();
       try {
