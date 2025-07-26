@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.web.servlet.WebMvcMetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
@@ -20,7 +19,6 @@ import org.wakanda.framework.entity.BaseEntity;
     exclude = {
       SecurityAutoConfiguration.class,
       ManagementWebSecurityAutoConfiguration.class,
-      WebMvcMetricsAutoConfiguration.class,
       LiquibaseAutoConfiguration.class,
       RepositoryMetricsAutoConfiguration.class,
       RabbitAutoConfiguration.class,

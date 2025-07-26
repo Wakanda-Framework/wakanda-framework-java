@@ -1,18 +1,18 @@
 /* (C) 2022 WAKANDA FRAMEWORK */
 package org.wakanda.framework.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
+import jakarta.persistence.Version;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import javax.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,6 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Propagation;
@@ -58,7 +57,6 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
 
   @Column(name = "created_on", nullable = false)
   @Temporal(TemporalType.TIMESTAMP)
-  @Type(type = "org.wakanda.framework.util.TimeBridgeForMillis")
   private DateTime createdOn;
 
   @Column(name = "last_updated_by")
@@ -66,7 +64,6 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
 
   @Column(name = "last_updated_on")
   @Temporal(value = TemporalType.TIMESTAMP)
-  @Type(type = "org.wakanda.framework.util.TimeBridgeForMillis")
   private DateTime lastUpdatedOn;
 
   @Version

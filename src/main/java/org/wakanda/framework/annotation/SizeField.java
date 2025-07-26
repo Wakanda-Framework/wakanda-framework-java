@@ -4,12 +4,12 @@ package org.wakanda.framework.annotation;
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+import jakarta.validation.constraints.Size;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import javax.validation.Constraint;
-import javax.validation.Payload;
-import org.springframework.http.HttpMethod;
 
 /**
  * Param field size validate.
@@ -50,8 +50,8 @@ public @interface SizeField {
   @Documented
   @interface List {
 
-    javax.validation.constraints.Size[] value();
+    Size[] value();
   }
 
-  HttpMethod[] method() default HttpMethod.GET; // For resource access.
+  // HttpMethod[] method() default HttpMethod.GET; // For resource access.
 }

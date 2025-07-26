@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 public class UserPrincipal implements UserDetails {
 
+  private static final long serialVersionUID = -472102311753058608L;
   private User user;
 
   @Override

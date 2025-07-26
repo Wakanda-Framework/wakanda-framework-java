@@ -30,7 +30,6 @@ import org.wakanda.framework.exception.handler.response.BaseExceptionResponse;
 @Slf4j
 public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandler {
 
-  @Override
   @NonNull
   protected ResponseEntity<Object> handleMethodArgumentNotValid(
       MethodArgumentNotValidException exception,

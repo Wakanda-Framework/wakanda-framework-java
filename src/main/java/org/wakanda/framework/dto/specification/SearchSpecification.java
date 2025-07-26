@@ -1,15 +1,15 @@
 /* (C) 2022 WAKANDA FRAMEWORK */
 package org.wakanda.framework.dto.specification;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Order;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Order;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +41,7 @@ public class SearchSpecification<T> implements Specification<T> {
       orders.add(sort.getDirection().build(root, cb, sort));
     }
 
-    query.orderBy(orders);
+    query.orderBy((Order[]) orders.toArray());
     return predicate;
   }
 

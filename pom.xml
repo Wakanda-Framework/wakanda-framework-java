@@ -11,7 +11,7 @@
     </parent>
     <groupId>org.wakanda.framework</groupId>
     <artifactId>wakanda-framework</artifactId>
-    <version>1.0.5</version>
+    <version>1.1.0</version>
     <name>wakanda-framework</name>
     <description>A quick action SpringBoot based microservices framework that allows for rapid construction of backend services including data modelling, business logic and other features.</description>
     <properties>
@@ -123,6 +123,10 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+	        <groupId>jakarta.persistence</groupId>
+	        <artifactId>jakarta.persistence-api</artifactId>
+    	</dependency>
+        <dependency>
             <groupId>net.kaczmarzyk</groupId>
             <artifactId>specification-arg-resolver</artifactId>
             <version>2.6.2</version>
@@ -168,10 +172,9 @@
             <version>5.3.1</version>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
+            <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
-            <version>8.2.0</version>
         </dependency>
         <dependency>
             <groupId>redis.clients</groupId>

@@ -3,8 +3,8 @@ package org.wakanda.framework.component;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;
 import org.wakanda.framework.constant.SignatureConstant;
 import org.wakanda.framework.exception.IllegalParamException;

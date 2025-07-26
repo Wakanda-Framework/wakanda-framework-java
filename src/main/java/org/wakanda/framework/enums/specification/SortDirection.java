@@ -1,9 +1,9 @@
 /* (C) 2022 WAKANDA FRAMEWORK */
 package org.wakanda.framework.enums.specification;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Order;
-import javax.persistence.criteria.Root;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Order;
+import jakarta.persistence.criteria.Root;
 import org.wakanda.framework.dto.specification.SortRequest;
 
 public enum SortDirection {

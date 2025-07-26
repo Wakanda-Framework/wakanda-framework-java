@@ -3,16 +3,16 @@ package org.wakanda.framework.converter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Convert;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Objects;
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
-@Converter
+@Convert
 public class JsonToGenericObjectConverter implements AttributeConverter<Object, String> {
 
   @Autowired private ObjectMapper objectMapper;

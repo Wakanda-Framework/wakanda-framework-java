@@ -3,6 +3,7 @@ package org.wakanda.framework.param;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Transient;
 import java.beans.BeanInfo;
 import java.beans.FeatureDescriptor;
 import java.beans.Introspector;
@@ -16,7 +17,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.persistence.Transient;
 import lombok.Data;
 import org.wakanda.framework.annotation.SignField;
 import org.wakanda.framework.constant.SignatureConstant;

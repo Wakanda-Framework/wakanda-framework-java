@@ -1,11 +1,11 @@
 /* (C) 2022 WAKANDA FRAMEWORK */
 package org.wakanda.framework.filter;
 
+import jakarta.annotation.Resource;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
