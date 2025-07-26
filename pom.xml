@@ -6,20 +6,20 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.3</version>
+        <version>3.5.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.wakanda.framework</groupId>
     <artifactId>wakanda-framework</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <name>wakanda-framework</name>
     <description>A quick action SpringBoot based microservices framework that allows for rapid construction of backend services including data modelling, business logic and other features.</description>
     <properties>
         <java.version>17</java.version>
         <liquibase.version>4.10.0</liquibase.version>
         <paho.version>1.2.5</paho.version>
-        <elastic.rhl.client.version>7.17.3</elastic.rhl.client.version>
-        <spring.version>2.7.0</spring.version>
+        <elastic.rhl.client.version>7.17.10</elastic.rhl.client.version>
+        <spring.version>3.5.4</spring.version>
         <maven.plugin.version>3.6.0</maven.plugin.version>
         <spotless.version>2.40.0</spotless.version>
         <jacoco.version>0.8.8</jacoco.version>
@@ -88,7 +88,8 @@
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
-            </dependency>
+            <version>${elastic.rhl.client.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
@@ -168,8 +169,9 @@
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
+            <version>8.2.0</version>
         </dependency>
         <dependency>
             <groupId>redis.clients</groupId>
@@ -223,10 +225,6 @@
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
