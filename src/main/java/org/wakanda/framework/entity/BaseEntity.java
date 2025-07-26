@@ -21,12 +21,14 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.wakanda.framework.constants.SessionConstant;
 import org.wakanda.framework.model.UserPrincipal;
+import org.wakanda.framework.util.TimeBridgeForMillis;
 import org.wakanda.framework.util.WakandaUtils;
 
 /**
@@ -56,7 +58,8 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
   private Long createdBy;
 
   @Column(name = "created_on", nullable = false)
-  @Temporal(TemporalType.TIMESTAMP)
+  @Temporal(value = TemporalType.TIMESTAMP)
+  @Type(value = TimeBridgeForMillis.class)
   private DateTime createdOn;
 
   @Column(name = "last_updated_by")
@@ -64,6 +67,7 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
 
   @Column(name = "last_updated_on")
   @Temporal(value = TemporalType.TIMESTAMP)
+  @Type(value = TimeBridgeForMillis.class)
   private DateTime lastUpdatedOn;
 
   @Version
