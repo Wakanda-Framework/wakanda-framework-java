@@ -116,8 +116,6 @@ public class BaseEntity<ID extends Serializable> implements Serializable {
     if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false;
 
     BaseEntity<ID> baseEntity = (BaseEntity<ID>) other;
-    log.info("other = {}", other);
-    // log.info("this = {}", this);
     if (!baseEntity.getCreatedOn().equals(getCreatedOn())) return false;
     if (null != baseEntity.getLastUpdatedOn() && null != getLastUpdatedOn())
       if (!baseEntity.getLastUpdatedOn().equals(getLastUpdatedOn()))

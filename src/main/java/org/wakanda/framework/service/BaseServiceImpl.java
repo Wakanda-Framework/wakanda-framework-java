@@ -82,7 +82,7 @@ public class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Serializable>
   public T preUpdate(T entity, ID entityId) throws PreProcessingException {
     if (null == entity) {
       throw new PreProcessingException(ErrorType.EMPTY_ENTITY);
-    } else if (null == entityId || entity.getId() != entityId) {
+    } else if (null == entityId || !entity.getId().equals(entityId)) {
       throw new PreProcessingException(
           "The identifier for the given entity doesn't match or is null/empty.");
     }
