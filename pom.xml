@@ -11,7 +11,7 @@
     </parent>
     <groupId>org.wakanda.framework</groupId>
     <artifactId>wakanda-framework</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
     <name>wakanda-framework</name>
     <description>A quick action SpringBoot based microservices framework that allows for rapid construction of backend services including data modelling, business logic and other features.</description>
     <properties>
@@ -154,7 +154,7 @@
 	    <dependency>
 		   <groupId>org.springdoc</groupId>
 		   <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-		   <version>2.5.0</version>
+		   <version>2.8.9</version>
 		</dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
